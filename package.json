@@ -1,0 +1,41 @@
+{
+  "name": "cubletbeta-backend",
+  "version": "1.0.0",
+  "description": "Cublet Beta is a web app that allows programming beginners to learn how to use the Wolfram Language.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "connect-mongo": "^0.8.1",
+    "express": "^4.13.0",
+    "express-session": "^1.11.3",
+    "jwt-simple": "^0.3.0",
+    "mongoose": "^4.0.6"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "gulp": "^3.9.0",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-jshint": "^1.11.2",
+    "gulp-watch": "^4.2.4",
+    "jshint-stylish": "^2.0.1"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alastairparagas/CubletBeta-Backend.git"
+  },
+  "keywords": [
+    "cublet-beta",
+    "cublet",
+    "backend",
+    "wolfram"
+  ],
+  "author": "Alastair Paragas <alastairparagas@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/alastairparagas/CubletBeta-Backend/issues"
+  },
+  "homepage": "https://github.com/alastairparagas/CubletBeta-Backend#readme"
+}
