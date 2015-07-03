@@ -17,16 +17,20 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
 
 1. `/auth`
   * `/signup`
-      * `POST` or `GET` a user's signup information - name, email, username, password
+      * `POST` a user's signup information - name, email, username, password
+	  * `name` parameter for new user's full name
+	  * `email` parameter for new user's email
+	  * `username` parameter for new user's username
+	  * `password` parameter for new user's password
   * `/login/legacy`
-      * `POST` or `GET` a user's credentials for legacy login - email/username or password
+      * `POST` a user's credentials for legacy login - email/username or password
 	  * `useridentifier` parameter for email/username
-	  * `useridentifier` parameter for password
+	  * `userpassword` parameter for password
   * `/login/facebook`
-      * `POST` or `GET` a Facebook oAuth access token that can be used to grab user information
+      * `POST` a Facebook oAuth access token that can be used to grab user information
 	  * `usertoken` parameter for Facebook access token
   * `/login/google`
-      * `POST` or `GET` a Google oAuth access token that can be used to grab user information
+      * `POST` a Google oAuth access token that can be used to grab user information
 	  * `usertoken` parameter for Google access token
 	  
 2. `/user`
