@@ -1,14 +1,14 @@
 ![Cublet Logo](https://avatars2.githubusercontent.com/u/13155509?v=3&s=100)
 
-# CubletBeta (Backend)
-Cublet Beta is a web app that allows beginners to programming to learn how to program with the Wolfram Language. Considering that the Wolfram Language allows for both imperative and functional style programming, both paradigms of programming can be demonstrated to those planning to get into programming.
+# Cublet (Backend)
+Cublet is a web app that allows beginners to programming to learn how to program with the Wolfram Language. Considering that the Wolfram Language allows for both imperative and functional style programming, both paradigms of programming can be demonstrated to those planning to get into programming.
 
-This repository holds all the backend server logic of CubletBeta. Originally, CubletBeta was just going to parse through results and throw them against a pre-made `APIFunction` Wolfram Cloud API to interpret the Wolfram Language input of the user and get a generated output. As we want the app to be as platform-agnostic as possible, this backend only provides a JSON interface which can then be hooked up to a web, mobile or any other kind of application frontend.
+This repository holds all the backend server logic of Cublet. Originally, Cublet was just going to parse through results and throw them against a pre-made `APIFunction` Wolfram Cloud API to interpret the Wolfram Language input of the user and get a generated output. As we want the app to be as platform-agnostic as possible, this backend only provides a JSON interface which can then be hooked up to a web, mobile or any other kind of application frontend.
 
-CubletBeta allows users to
+Cublet allows users to
 
 * Create an account through the conventional registration, Google oAuth and Facebook oAuth
-* Follow other CubletBeta users
+* Follow other Cublet users
 * Have a repository of Wolfram Language code sessions that they have written
 * Share the Wolfram Language code sessions they have written with the rest of the world (or have such sessions be private)
 
