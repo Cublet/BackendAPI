@@ -33,19 +33,27 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
       * `POST` a Google oAuth access token that can be used to grab user information
 	  * `usertoken` parameter for Google access token
 	  
-2. `/user`
-  * `/me`
-      * `POST` to edit the current logged in user's information
+2. `/users`
+  * `/me` ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
+      * `PUT` to edit the current logged in user's information
 	  * `GET` to view the current logged in user's information
   * `/<account-id>`
-      * View the public information of a user
-  * `/<account-id>/follow`
-	  * Set the current logged in user to follow the user who has an account id of `<account-id>`
+      * `PUT` to edit the information of a user (given control)
+      * `GET` to view the information of a user
+  * `/<account-id>/follow` ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
+      * `PUT` to set the current logged in user as following the user who has an account id of `<account-id>`and set the user who has an account id of `<account-id>` to have the current logged in user as a follower.
 		
-3. `/repo`
+3. `/repos`
   * `/<repo-id>`
-      * `POST` to edit the current repository
-      * `GET` to view the contents of this repository
+      * `PUT` to edit the current repository
+      * `GET` to view the contents of the repository
+  * `/<repo-id>/comments`
+      * `POST` to add a new comment to a repository
+	  * `GET` to view all the comments on a repository
+  * `/<repo-id>/comments/<comment-id>`
+      * `GET` to view the specific comment at the specific repository
+	  * `PUT` to edit the specific comment at the specific repository ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
+	  
 
 ## Technologies Used:
 * Mongo Database
@@ -55,4 +63,5 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
 * Body-Parser Express Middleware for parsing POST/GET requests
 * Express-Session Express Middleware for establishing sessions
 
+## Dev Process
 * Gulp for build step
