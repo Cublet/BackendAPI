@@ -33,7 +33,7 @@
 			}
 		}
 		
-		responseStream
+		return responseStream
 			.status(status)
 			.json({
 				status: status,
