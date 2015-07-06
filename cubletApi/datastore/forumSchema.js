@@ -14,12 +14,23 @@
 				ref: 'User'
 			},
 			createdAt: Date,
-			editedAt: {
-				type: Date, 
-				default: Date.now
-			},
+			updatedAt: Date,
 			comments: [forumCommentSchema]
 		});
+	
+	forumSchema.pre('save', function(next){
+		now = new Date();
+		this.updatedAt = now;
+		if ( !this.createdAt ) {
+			this.createdAt = now;
+		}
+		next();
+	});
+	forumSchema.pre('update', function() {
+		this.update({
+			updatedAt: Date.now()
+		});
+	});
 	
 	module.exports = forumSchema;
 	

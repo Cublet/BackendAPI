@@ -17,14 +17,23 @@
 				type: Schema.Types.ObjectId,
 				ref: 'User'
 			},
-			createdAt: {
-				type: Date	
-			},
-			editedAt: {
-				type: Date,
-				default: Date.now
-			}
+			createdAt: Date,
+			updatedAt: Date
 		});
+	
+	repoSchema.pre('save', function(next){
+		now = new Date();
+		this.updatedAt = now;
+		if ( !this.createdAt ) {
+			this.createdAt = now;
+		}
+		next();
+	});
+	repoSchema.pre('update', function() {
+		this.update({
+			updatedAt: Date.now()
+		});
+	});
 	
 	module.exports = repoSchema;
 	

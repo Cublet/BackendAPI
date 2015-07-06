@@ -12,10 +12,7 @@
 			facebookId: String,
 			googleId: String,
 			createdAt: Date,
-			editedAt: {
-				type: Date, 
-				default: Date.now
-			},
+			updatedAt: Date,
 			following: [{
 				type: Schema.Types.ObjectId, 
 				ref: 'User'
@@ -33,6 +30,20 @@
 				ref: 'Repo'
 			}]
 		});
+	
+	userSchema.pre('save', function(next){
+		now = new Date();
+		this.updatedAt = now;
+		if ( !this.createdAt ) {
+			this.createdAt = now;
+		}
+		next();
+	});
+	userSchema.pre('update', function() {
+		this.update({
+			updatedAt: Date.now()
+		});
+	});
 	
 	module.exports = userSchema;
 	

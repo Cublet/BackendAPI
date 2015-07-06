@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	
+
 	var mongoose = require('mongoose'),
 		Schema = mongoose.Schema,
 
@@ -11,16 +11,27 @@
 				ref: 'User'
 			},
 			createdAt: Date,
-			editedAt: {
-				type: Date,
-				default: Date.now
-			},
+			updatedAt: Date,
 			under: {
 				type: Schema.Types.ObjectId,
 				ref: 'Repo'
 			}
 		});
-	
+
+	repoCommentSchema.pre('save', function(next){
+		now = new Date();
+		this.updatedAt = now;
+		if ( !this.createdAt ) {
+			this.createdAt = now;
+		}
+		next();
+	});
+	repoCommentSchema.pre('update', function() {
+		this.update({
+			updatedAt: Date.now()
+		});
+	});
+
 	module.exports = repoCommentSchema;
-	
+
 }());
