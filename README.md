@@ -11,6 +11,8 @@ Cublet allows users to
 * Follow other Cublet users
 * Have a repository of Wolfram Language code sessions that they have written
 * Share the Wolfram Language code sessions they have written with the rest of the world (or have such sessions be private)
+* Comment on other site users' Wolfram Language repos
+* Create and discuss on forums
 
 ## API endpoints
 All API endpoint requests must be prefixed by `/api/<Cublet version number>`. The current version number of the Cublet API backend is `v1`. All API responses are returned in the JSON format by default.
@@ -34,25 +36,34 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
 	  * `usertoken` parameter for Google access token
 	  
 2. `/users`
-  * `/me` ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
+  * `/me` (JWT)
       * `PUT` to edit the current logged in user's information
 	  * `GET` to view the current logged in user's information
-  * `/<account-id>`
-      * `PUT` to edit the information of a user (given control)
-      * `GET` to view the information of a user
-  * `/<account-id>/follow` ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
-      * `PUT` to set the current logged in user as following the user who has an account id of `<account-id>`and set the user who has an account id of `<account-id>` to have the current logged in user as a follower.
+  * `/<user-id>`
+      * `PUT` to edit the user with provided `<repo-id>` (JWT)
+      * `GET` to view the specific user with `<user-id>`
+  * `/<user-id>/follow` (JWT)
+      * `PUT` to set the current logged in user as following the user who has an account id of `<user-id>`and set the user who has an account id of `<user-id>` to have the current logged in user as a follower.
 		
 3. `/repos`
+  * `POST` to add a new repository
   * `/<repo-id>`
-      * `PUT` to edit the current repository
-      * `GET` to view the contents of the repository
+      * `PUT` to edit the repository with provided `<repo-id>` (JWT)
+      * `GET` to view the specific repository with `<repo-id>`
   * `/<repo-id>/comments`
-      * `POST` to add a new comment to a repository
+      * `POST` to add a new comment to a repository (JWT)
 	  * `GET` to view all the comments on a repository
   * `/<repo-id>/comments/<comment-id>`
       * `GET` to view the specific comment at the specific repository
-	  * `PUT` to edit the specific comment at the specific repository ![Key](http://icons8.github.io/flat-color-icons/svg/key.svg)
+	  * `PUT` to edit the specific comment at the specific repository (JWT)
+	  
+4. `/forums`
+  * `POST` to add a new forum board
+  * `GET` to get all the forum boards
+  * `/<forum-id>`
+      * `PUT` to edit the forum with provided `<forum-id>` (JWT)
+	  * `GET` to view the specific forum with `<forum-id>`
+   
 	  
 
 ## Technologies Used:
