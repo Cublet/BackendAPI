@@ -6,6 +6,7 @@
 		mongoose = require('mongoose'),
 		router = express.Router(),
 		missingMiddleware = require('cubletApi/middleware/missing'),
+		corsMiddleware = require('cubletApi/middleware/cors'),
 		authRouter = require('cubletApi/auth/router'),
 		userRouter = require('cubletApi/user/router'),
 		repoRouter = require('cubletApi/repo/router'),
@@ -17,6 +18,7 @@
 	
 	router.use(bodyParser.urlencoded({extended: false}));
 	router.use(bodyParser.json());
+	router.use(corsMiddleware);
 	
 	router.use('/auth', authRouter);
 	router.use('/user', userRouter);
