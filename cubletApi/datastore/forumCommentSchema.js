@@ -5,16 +5,21 @@
 		Schema = mongoose.Schema,
 
 		forumCommentSchema = new Schema({
-			message: String,
+			message: {
+				type: String,
+				required: true
+			},
 			createdBy: {
-				type: Schema.Types.ObjectId, 
+				type: Schema.Types.ObjectId,
+				required: true,
 				ref: 'User'
 			},
 			createdAt: Date,
 			updatedAt: Date,
 			under: {
 				type: Schema.Types.ObjectId,
-				ref: 'Forum'
+				ref: 'Forum',
+				required: true
 			}
 		});
 

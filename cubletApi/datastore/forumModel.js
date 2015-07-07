@@ -1,7 +1,8 @@
 (function () {
 	'use strict';
 	
-	var forumSchema = require('cubletApi/datastore/forumSchema'),
+	var mongoose = require('mongoose'),
+		forumSchema = require('cubletApi/datastore/forumSchema'),
 		
 		forumModel = mongoose.model('Forum', forumSchema);
 	

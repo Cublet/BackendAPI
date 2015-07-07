@@ -1,7 +1,8 @@
 (function () {
 	'use strict';
 	
-	var userSchema = require('cubletApi/datastore/userSchema'),
+	var mongoose = require('mongoose'),
+		userSchema = require('cubletApi/datastore/userSchema'),
 		
 		userModel = mongoose.model('User', userSchema);
 	

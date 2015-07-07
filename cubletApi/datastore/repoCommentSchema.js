@@ -5,21 +5,26 @@
 		Schema = mongoose.Schema,
 
 		repoCommentSchema = new Schema({
-			message: String,
+			message: {
+				type: String,
+				required: true
+			},
 			createdBy: {
 				type: Schema.Types.ObjectId,
-				ref: 'User'
+				ref: 'User',
+				required: true
 			},
 			createdAt: Date,
 			updatedAt: Date,
 			under: {
 				type: Schema.Types.ObjectId,
-				ref: 'Repo'
+				ref: 'Repo',
+				required: true
 			}
 		});
 
 	repoCommentSchema.pre('save', function(next){
-		now = new Date();
+		var now = new Date();
 		this.updatedAt = now;
 		if ( !this.createdAt ) {
 			this.createdAt = now;

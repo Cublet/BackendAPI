@@ -7,11 +7,18 @@
 		Schema = mongoose.Schema,
 		
 		forumSchema = new Schema({
-			title: String,
-			message: String,
+			title: {
+				type: String,
+				required: true
+			},
+			message: {
+				type: String,
+				required: true
+			},
 			createdBy: {
 				type: Schema.Types.ObjectId, 
-				ref: 'User'
+				ref: 'User',
+				required: true
 			},
 			createdAt: Date,
 			updatedAt: Date,
@@ -19,7 +26,7 @@
 		});
 	
 	forumSchema.pre('save', function(next){
-		now = new Date();
+		var now = new Date();
 		this.updatedAt = now;
 		if ( !this.createdAt ) {
 			this.createdAt = now;

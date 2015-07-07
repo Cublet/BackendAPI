@@ -6,8 +6,14 @@
 		repoCommentSchema = require('cubletApi/datastore/repoCommentSchema'),
 		
 		repoSchema = new Schema({
-			title: String,
-			code: String,
+			title: {
+				type: String,
+				required: true
+			},
+			code: {
+				type: String,
+				required: true
+			},
 			comments: [repoCommentSchema],
 			followedBy: [{
 				type: Schema.Types.ObjectId,
@@ -15,14 +21,15 @@
 			}],
 			createdBy: {
 				type: Schema.Types.ObjectId,
-				ref: 'User'
+				ref: 'User',
+				required: true
 			},
 			createdAt: Date,
 			updatedAt: Date
 		});
 	
 	repoSchema.pre('save', function(next){
-		now = new Date();
+		var now = new Date();
 		this.updatedAt = now;
 		if ( !this.createdAt ) {
 			this.createdAt = now;

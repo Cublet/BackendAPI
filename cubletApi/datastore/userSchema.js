@@ -5,12 +5,29 @@
 		Schema = mongoose.Schema,
 		
 		userSchema = new Schema({
-			name: String,
-			username: String,
-			email: String,
+			name: {
+				type: String,
+				required: true
+			},
+			username: {
+				type: String,
+				unique: true,
+				required: true
+			},
+			email: {
+				type: String,
+				unique: true,
+				required: true
+			},
 			password: String,
-			facebookId: String,
-			googleId: String,
+			facebookId: {
+				type: String,
+				unique: true
+			},
+			googleId: {
+				type: String,
+				unique: true
+			},
 			createdAt: Date,
 			updatedAt: Date,
 			following: [{
@@ -21,7 +38,12 @@
 				type: Schema.Types.ObjectId,
 				ref: 'User'
 			}],
+			activity: [{
+				action: String,
+				reference: Schema.Types.ObjectId
+			}],
 			feed: [{
+				from: Schema.Types.ObjectId,
 				action: String,
 				reference: Schema.Types.ObjectId
 			}],
@@ -32,7 +54,7 @@
 		});
 	
 	userSchema.pre('save', function(next){
-		now = new Date();
+		var now = new Date();
 		this.updatedAt = now;
 		if ( !this.createdAt ) {
 			this.createdAt = now;
