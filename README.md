@@ -17,7 +17,9 @@ Cublet allows users to
 * Create and discuss on forums
 
 ## API endpoints
-All API endpoint requests must be prefixed by `/api/<Cublet version number>`. The current version number of the Cublet API backend is `v1`. All API responses are returned in the JSON format by default.
+All API endpoint requests must be prefixed by `/api/<Cublet version number>`. The current version number of the Cublet API backend is `v1`. All API responses are returned in the JSON format by default. 
+
+All endpoints demarcated with the label `JWT`, are run through the Auth Express middleware which checks for the JSON Web Token on the Authentication headers.
 
 1. `/auth`
   * `/signup`
@@ -32,9 +34,11 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
 	  * `userpassword` parameter for password
   * `/login/facebook`
       * `POST` a Facebook oAuth access token that can be used to grab user information
+	  * `username` parameter for new user's username
 	  * `usertoken` parameter for Facebook access token
   * `/login/google`
       * `POST` a Google oAuth access token that can be used to grab user information
+	  * `username` parameter for new user's username
 	  * `usertoken` parameter for Google access token
 	  
 2. `/users`
@@ -58,6 +62,9 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
   * `/<repo-id>/comments/<comment-id>`
       * `GET` to view the specific comment at the specific repository
 	  * `PUT` to edit the specific comment at the specific repository (JWT)
+  * `/<repo-id>/comments/<comment-id>/upvote`
+      * `POST` to set the current logged in user as upvoting the comment `<comment-id>` on repo `<repo-id>` (JWT)
+	  * `DELETE` to remove the current logged in user's upvote for the comment `<comment-id>` on repo `<repo-id>`. (JWT)
 	  
 4. `/forums`
   * `POST` to add a new forum board
@@ -65,7 +72,15 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
   * `/<forum-id>`
       * `PUT` to edit the forum with provided `<forum-id>` (JWT)
 	  * `GET` to view the specific forum with `<forum-id>`
-   
+  * `/<forum-id>/comments`
+      * `POST` to add a new comment to a forum (JWT)
+	  * `GET` to view all the comments on a forum
+  * `/<forum-id>/comments/<comment-id>`
+      * `GET` to view the specific comment at the specific forum
+	  * `PUT` to edit the specific comment at the specific forum (JWT)
+  * `/<forum-id>/comments/<comment-id>/upvote`
+      * `POST` to set the current logged in user as upvoting the comment `<comment-id>` on forum `<forum-id>` (JWT)
+	  * `DELETE` to remove the current logged in user's upvote for the comment `<comment-id>` on forum `<forum-id>`. (JWT)
 	  
 
 ## Technologies Used:
