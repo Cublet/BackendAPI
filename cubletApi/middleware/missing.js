@@ -13,7 +13,7 @@
 	function missingMiddleware(req, res) {
 		apiView(res, {
 			status: 404,
-			message: 'API endpoint does not exist'
+			message: 'API endpoint URL or method for such URL does not exist.'
 		});
 	}
 	
