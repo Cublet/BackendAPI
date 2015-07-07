@@ -3,7 +3,9 @@
 # Cublet (Backend)
 Cublet is a web app that allows beginners to programming to learn how to program with the Wolfram Language. Considering that the Wolfram Language allows for both imperative and functional style programming, both paradigms of programming can be demonstrated to those planning to get into programming.
 
-This repository holds all the backend server logic of Cublet. Originally, Cublet was just going to parse through results and throw them against a pre-made `APIFunction` Wolfram Cloud API to interpret the Wolfram Language input of the user and get a generated output. As we want the app to be as platform-agnostic as possible, this backend only provides a JSON interface which can then be hooked up to a web, mobile or any other kind of application frontend.
+This repository holds all the backend server logic of Cublet. Originally, Cublet was just going to parse through results and throw them against a pre-made `APIFunction` Wolfram Cloud API to interpret the Wolfram Language input of the user and get a generated output. However, it grew to an idea of creating an entire ecosystem for Wolfram Language beginners. As we want the app to be as platform-agnostic as possible, this backend only provides a JSON interface which can then be hooked up to a web, mobile or any other kind of application frontend.
+
+For authentication, the appropriate `/auth/login/<login-method>` endpoint is hit up and provided with the necessary credentials. If verified, the consumer/user is then given a JSON Web Token that can then be used to authenticate his/her subsequent requests.
 
 Cublet allows users to
 
@@ -69,10 +71,9 @@ All API endpoint requests must be prefixed by `/api/<Cublet version number>`. Th
 ## Technologies Used:
 * Mongo Database
 * Mongoose for NodeJS Mongo Schema
-* JWT for securing authentication transmission
 * Express
 * Body-Parser Express Middleware for parsing POST/GET requests
-* Express-Session Express Middleware for establishing sessions
+* JSONWebToken for creating session/authentication tokens
 
 ## Dev Process
 * Gulp for build step
