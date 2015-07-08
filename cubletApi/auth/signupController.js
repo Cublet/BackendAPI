@@ -115,7 +115,7 @@
 
 			return apiView(res, {
 				status: 200,
-				message: 'Succesfully signed the user up'
+				message: 'Succesful signup'
 			});
 		});
 
