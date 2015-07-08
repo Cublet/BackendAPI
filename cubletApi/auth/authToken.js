@@ -12,6 +12,7 @@
 	*/
 	function generate(payload) {
 		return jwt.sign(payload, config.jwtSecret, {
+			algorithm: 'HS256',
 			expiresInMinutes: 1440
 		});
 	}
@@ -26,7 +27,9 @@
 		var decoded;
 		
 		try {
-			decoded = jwt.verify(tokenString, config.jwtSecret);
+			decoded = jwt.verify(tokenString, config.jwtSecret, {
+				algorithms: ['HS256']	
+			});
 		} catch (err) {
 			decoded = null;
 		}

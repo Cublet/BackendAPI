@@ -3,7 +3,7 @@
 
 	var validator = require('validator'),
 		async = require('async'),
-		
+
 		apiView = require('cubletApi/apiView'),
 		userModel = require('cubletApi/datastore/userModel'),
 		passwordHash = require('cubletApi/auth/passwordHash');
@@ -60,9 +60,9 @@
 				'at least 8 characters long';
 		}
 
-		// There is a mistake present and that at least one of such mistakes
-		// is a username mistake.
-		if (mistakesData.username && 
+		// There is a mistake present and that at least two of such mistakes
+		// are a username and email-based mistake.
+		if (mistakesData.username && mistakesData.email &&
 			Object.getOwnPropertyNames(mistakesData).length > 0) {
 			return apiView(res, {
 				status: 400,
@@ -77,26 +77,34 @@
 			},
 			function (sameUsernames, callback) {
 				if (sameUsernames > 0) {
-					callback(new Error());
 					mistakesData.username = "Someone already has that username";
 				}
-
-				callback(null);
+				userModel.count({email: email}, callback);
+			},
+			function (sameEmails, callback) {
+				if (sameEmails > 0) {
+					mistakesData.email = "Someone already has that email";
+				}
+				
+				if (Object.getOwnPropertyNames(mistakesData).length > 0) {
+					callback(new Error());	
+				} else {
+					callback(null);
+				}
 			},
 			function (callback) {
-				userModel
-					.create({
+				userModel.create({
 					name: name,
 					username: username,
 					email: email,
-					password: passwordHash(password)
+					password: passwordHash.hash(password)
 				}).then(function () {
 					callback(null);
 				}, function (error) {
 					callback(error);
 				});
 			}
-		], function (err, result) {
+		], function (err) {
 			if (err) {
 				return apiView(res, {
 					status: 400,

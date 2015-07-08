@@ -22,11 +22,13 @@
 			password: String,
 			facebookId: {
 				type: String,
-				unique: true
+				unique: true,
+				sparse: true,
 			},
 			googleId: {
 				type: String,
-				unique: true
+				unique: true,
+				sparse: true
 			},
 			createdAt: Date,
 			updatedAt: Date,

@@ -1,12 +1,14 @@
 (function () {
 	'use strict';
-	
+
 	var validator = require('validator'),
-		
+		async = require('async'),
+
 		passwordHash = require('cubletApi/auth/passwordHash'),
+		authToken = require('cubletApi/auth/authToken'),
 		apiView = require('cubletApi/apiView'),
 		userModel = require('cubletApi/datastore/userModel');
-	
+
 	/**
 	* Controller for handling legacy logins
 	* @module cubletApi/auth
@@ -18,15 +20,15 @@
 		var userIdentifier = req.body.useridentifier,
 			userPassword = req.body.userpassword,
 			userSearch;
-		
+
 		if (!(userIdentifier && userPassword)) {
-			apiView(req, {
+			apiView(res, {
 				status: 403,
 				message:  'User Email/Username and Password must' + 
-					' be both provided'
+				' be both provided'
 			});
 		}
-		
+
 		if (validator.isEmail(userIdentifier)) {
 			userSearch = userModel.findOne({
 				email: userIdentifier
@@ -36,35 +38,51 @@
 				username: userIdentifier
 			}).exec();
 		}
-		
-		userSearch.then(function (err, userInfo) {
+
+		async.waterfall([
+			function (callback) {
+				userSearch.then(function (userInfo) {
+					callback(null, userInfo);
+				}, function (err) {
+					callback(err);	
+				});
+			},
+			function (userInfo, callback) {
+				if (!userInfo) {
+					callback(new Error("Incorrect login. Try again."));
+				} else if (
+					!passwordHash.compare(userPassword, userInfo.password)) {
+					callback(new Error("Incorrect login. Try again."));	
+				}
+
+				var userInfoPublic = userInfo.toObject();
+				delete userInfoPublic.password;
+				userInfoPublic.authToken = authToken.generate({
+					_id: userInfoPublic._id,
+					username: userInfoPublic.name,
+					email: userInfoPublic.email,
+					createdAt: userInfoPublic.createdAt,
+					updatedAt: userInfoPublic.updatedAt
+				});
+				
+				callback(null, userInfoPublic);
+			},
+		], function (err, userInfoPublic) {
 			if (err) {
-				throw err;	
-			}
-			if (!userInfo) {
-				throw new Error("Incorrect login. Try again.");
-			}
-			
-			if (!passwordHash.compare(userPassword, userInfo.password)) {
-				throw new Error("Incorrect login. Try again.");	
+				return apiView(res, {
+					status: 400,
+					message: err.message
+				});	
 			}
 			
-			var userInfoPublic = userInfo.toObject();
-			delete userInfoPublic.password;
-			delete userInfoPublic._id;
-			
-			apiView(res, {
+			return apiView(res, {
+				status: 200,
 				message: "Succesfully authenticated",
 				data: userInfoPublic
 			});
-		}).catch(function (err) {
-			apiView(res, {
-				status: 400,
-				message: err.message
-			});
 		});
 	}
-	
+
 	module.exports = legacyLoginController;
-	
+
 }());
