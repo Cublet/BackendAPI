@@ -3,6 +3,8 @@
 	
 	var mongoose = require('mongoose'),
 		Schema = mongoose.Schema,
+		userFeedSchema = require('cubletApi/datastore/userFeedSchema'),
+		userActivitySchema = require('cubletApi/datastore/userActivitySchema'),
 		
 		userSchema = new Schema({
 			name: {
@@ -40,15 +42,8 @@
 				type: Schema.Types.ObjectId,
 				ref: 'User'
 			}],
-			activity: [{
-				action: String,
-				reference: Schema.Types.ObjectId
-			}],
-			feed: [{
-				from: Schema.Types.ObjectId,
-				action: String,
-				reference: Schema.Types.ObjectId
-			}],
+			feed: [userFeedSchema],
+			activity: [userActivitySchema],
 			repos: [{
 				type: Schema.Types.ObjectId,
 				ref: 'Repo'

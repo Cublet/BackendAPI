@@ -5,8 +5,8 @@
 		async = require('async'),
 
 		passwordHash = require('cubletApi/auth/passwordHash'),
-		authToken = require('cubletApi/auth/authToken'),
 		apiView = require('cubletApi/apiView'),
+		loginDataView = require('cubletApi/auth/loginDataView'),
 		userModel = require('cubletApi/datastore/userModel');
 
 	/**
@@ -41,31 +41,23 @@
 
 		async.waterfall([
 			function (callback) {
-				userSearch.then(function (userInfo) {
-					callback(null, userInfo);
+				// Check if user exists on Cublet
+				userSearch.then(function (userDoc) {
+					callback(null, userDoc);
 				}, function (err) {
 					callback(err);	
 				});
 			},
-			function (userInfo, callback) {
-				if (!userInfo) {
+			function (userDoc, callback) {
+				// Check if user's password matches the stored hashed password
+				if (!userDoc) {
 					callback(new Error("Incorrect login. Try again."));
 				} else if (
-					!passwordHash.compare(userPassword, userInfo.password)) {
-					callback(new Error("Incorrect login. Try again."));	
+					!passwordHash.compare(userPassword, userDoc.password)) {
+					return callback(new Error("Incorrect login. Try again."));
 				}
-
-				var userInfoPublic = userInfo.toObject();
-				delete userInfoPublic.password;
-				userInfoPublic.authToken = authToken.generate({
-					_id: userInfoPublic._id,
-					username: userInfoPublic.name,
-					email: userInfoPublic.email,
-					createdAt: userInfoPublic.createdAt,
-					updatedAt: userInfoPublic.updatedAt
-				});
 				
-				callback(null, userInfoPublic);
+				callback(null, loginDataView(userDoc));
 			},
 		], function (err, userInfoPublic) {
 			if (err) {

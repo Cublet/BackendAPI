@@ -20,7 +20,7 @@
 				email: userDocFormatted.email,
 				createdAt: userDocFormatted.createdAt
 			};
-
+		
 		if (optionalProps && lodash.isPlainObject(optionalProps)) {
 			lodash.assign(userDocFormatted, optionalProps);	
 			lodash.assign(authTokenPayload, optionalProps);
