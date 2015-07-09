@@ -36,10 +36,6 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
       * `POST` a Facebook oAuth access token that can be used to grab user information
 	  * `username` parameter for user's username, if this is the first time the user is logging in.
 	  * `usertoken` parameter for Facebook access token
-  * `/login/google`
-      * `POST` a Google oAuth access token that can be used to grab user information
-	  * `username` parameter for user's username, if this is the first time the user is logging in.
-	  * `usertoken` parameter for Google access token
 	  
 2. `/users`
   * `/me` (JWT)
