@@ -49,18 +49,16 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
 		
 3. `/repos`
   * `POST` to add a new repository
+  * `GET` to get all the repo boards
   * `/<repo-id>`
       * `PUT` to edit the repository with provided `<repo-id>` (JWT)
       * `GET` to view the specific repository with `<repo-id>`
   * `/<repo-id>/comments`
       * `POST` to add a new comment to a repository (JWT)
-	  * `GET` to view all the comments on a repository
   * `/<repo-id>/comments/<comment-id>`
-      * `GET` to view the specific comment at the specific repository
 	  * `PUT` to edit the specific comment at the specific repository (JWT)
   * `/<repo-id>/comments/<comment-id>/upvote`
-      * `POST` to set the current logged in user as upvoting the comment `<comment-id>` on repo `<repo-id>` (JWT)
-	  * `DELETE` to remove the current logged in user's upvote for the comment `<comment-id>` on repo `<repo-id>`. (JWT)
+      * `POST` to toggle the upvote of current user on comment `<comment-id>` on repo `<repo-id>` (JWT)
 	  
 4. `/forums`
   * `POST` to add a new forum board
@@ -70,13 +68,10 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
 	  * `GET` to view the specific forum with `<forum-id>`
   * `/<forum-id>/comments`
       * `POST` to add a new comment to a forum (JWT)
-	  * `GET` to view all the comments on a forum
   * `/<forum-id>/comments/<comment-id>`
-      * `GET` to view the specific comment at the specific forum
 	  * `PUT` to edit the specific comment at the specific forum (JWT)
   * `/<forum-id>/comments/<comment-id>/upvote`
-      * `POST` to set the current logged in user as upvoting the comment `<comment-id>` on forum `<forum-id>` (JWT)
-	  * `DELETE` to remove the current logged in user's upvote for the comment `<comment-id>` on forum `<forum-id>`. (JWT)
+      * `POST` to toggle the upvote of current user on comment `<comment-id>` on forum `<forum-id>` (JWT)
 	  
 
 ## Technologies Used:
