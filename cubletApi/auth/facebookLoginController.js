@@ -29,7 +29,7 @@
 
 		async.waterfall([
 			function (callback) {
-				// Get Facebook information of user
+				// Get information of the FB profile that was used to login.
 				var userTokenInfoApiPath = "/me?access_token=" + usertoken;
 
 				facebookApiCall(userTokenInfoApiPath).then(
@@ -41,10 +41,31 @@
 			},
 			function (userFbInfo, callback) {
 				/*
-					See if Cublet already has the Facebook user.
-					If he/she does, set facebookId if not already set.
-					If not, we need a username (POST 'username' parameter)
+					Return the Mongoose Document of a User with a matching 
+					ID of the FB profile that was used to login.
 				*/
+				userModel.findOne({
+					facebookId: userFbInfo.id
+				}, function (err, userDoc) {
+					if (err) {
+						return callback(err);	
+					}
+					callback(null, userFbInfo, userDoc);
+				});
+			},
+			function (userFbInfo, userDoc, callback) {
+				/*
+					If a Mongoose Document of a User with a matching ID 
+					of an FB profile that was used to login, exists, 
+					proceed to next step.
+					
+					If not, see if a Mongoose Document of a user with a matching
+					email of the FB profile that was used to login, exists.
+				*/
+				if (userDoc) {
+					callback(null, userFbInfo, userDoc);	
+				}
+				
 				userModel.findOne({
 					email: userFbInfo.email
 				}, function (err, userDoc) {
@@ -66,17 +87,18 @@
 						});
 					}
 					
-					callback(null, userDoc, userFbInfo);
+					callback(null, userFbInfo, userDoc);
 				});
 			},
-			function (userCubletInfo, userFbInfo, callback) {
+			function (userFbInfo, userDoc, callback) {
 				/*
-					If Facebook user exists in Cublet, proceed to getting
-					a long access token. If not, add the Facebook user
-					in the Cublet system.
+					If Facebook user exists in Cublet, whether by matching 
+					Facebook ID or email, proceed to next step.
+					
+					If not, add the Facebook user in Cublet
 				*/
-				if (userCubletInfo) {
-					return callback(null, userCubletInfo);	
+				if (userDoc) {
+					return callback(null, userDoc);	
 				}
 				
 				var fullname = userFbInfo.first_name + " " + 
@@ -87,18 +109,18 @@
 					email: userFbInfo.email,
 					username: username,
 					facebookId: userFbInfo.id
-				}, function (err, userCubletInfo) {
+				}, function (err, userDoc) {
 					if (err) {
 						return callback(err);
 					}
 					
-					callback(null, userCubletInfo);
+					callback(null, userDoc);
 				});
 			},
-			function (userCubletInfo, callback) {
+			function (userDoc, callback) {
 				/*
 					Generate a long access Facebook token and finalize
-					a response back to client.
+					an API response back to client.
 				*/
 				var longAccessTokenApiPath = "/oauth/access_token" + 
 					"?grant_type=fb_exchange_token" + 
@@ -114,11 +136,10 @@
 							);
 						}
 						
-						callback(null, loginDataView(userCubletInfo, {
+						callback(null, loginDataView(userDoc, {
 							fbToken: response.access_token	
 						}));
 					}, function (err) {
-						console.log("Didn't obtain access token");
 						callback(err);
 					});	
 			}

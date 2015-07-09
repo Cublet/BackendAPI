@@ -51,8 +51,12 @@
 			function (userDoc, callback) {
 				// Check if user's password matches the stored hashed password
 				if (!userDoc) {
-					callback(new Error("Incorrect login. Try again."));
+					return callback(new Error("Incorrect login. Try again."));
+				} else if (!userDoc.password) {
+					return callback(new Error("Sign in with your " + 
+											  "Facebook/Google account."));
 				} else if (
+					userDoc.password.length > 0 && 
 					!passwordHash.compare(userPassword, userDoc.password)) {
 					return callback(new Error("Incorrect login. Try again."));
 				}
