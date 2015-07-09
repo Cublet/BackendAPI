@@ -3,17 +3,17 @@
 	
 	var apiView = require('cubletApi/apiView');
 	
-	function useridMiddleware(req, res, next) {
+	function userIdMiddleware(req, res, next) {
 		if (!req || !req.params || !req.params.userid || 
 			req.params.userid.length === 0) {
 			return apiView(res, {
 				status: 400,
-				message: "User's ID is a required parameter"
+				message: "User ID is a required request parameter"
 			});
 		}
 		next();
 	}
 	
-	module.exports = useridMiddleware;
+	module.exports = userIdMiddleware;
 	
 }());

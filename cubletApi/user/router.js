@@ -4,7 +4,7 @@
 	var router = require('express').Router(),
 		
 		authMiddleware = require('cubletApi/middleware/auth'),
-		useridMiddleware = require('cubletApi/middleware/userid'),
+		userIdMiddleware = require('cubletApi/middleware/userId'),
 		
 		meController = require('cubletApi/user/meInfoController'),
 		userInfoController = require('cubletApi/user/userInfoController'),
@@ -17,14 +17,14 @@
 		.get(meController.get);
 	router
 		.route('/:userid')
-		.put(useridMiddleware)
+		.put(userIdMiddleware)
 		.put(authMiddleware)
 		.put(userInfoController.put)
-		.get(useridMiddleware)
+		.get(userIdMiddleware)
 		.get(userInfoController.get);
 	router
 		.route('/:userid/follow')
-		.put(useridMiddleware)
+		.put(userIdMiddleware)
 		.put(authMiddleware)
 		.put(userFollowController.put);
 
