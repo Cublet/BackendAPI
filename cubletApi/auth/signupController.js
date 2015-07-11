@@ -54,10 +54,9 @@
 		}
 
 		if (!mistakesData.password && 
-			!(validator.isAlphanumeric(password) && 
-			  password.length >= 8)) {
-			mistakesData.password = 'Password must be alphanumeric and ' + 
-				'at least 8 characters long';
+			password.length < 5) {
+			mistakesData.password = 'Password must be at least ' + 
+				'5 characters long';
 		}
 
 		// There is a mistake present and that at least two of such mistakes
@@ -85,7 +84,7 @@
 				if (sameEmails > 0) {
 					mistakesData.email = "Someone already has that email";
 				}
-				
+
 				if (Object.getOwnPropertyNames(mistakesData).length > 0) {
 					callback(new Error());	
 				} else {
