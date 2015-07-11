@@ -19,7 +19,7 @@
 		if (!authHeaders || !authToken) {
 			return apiView(res, {
 				status: 403,
-				message: 'Unauthorized'
+				message: 'Unauthorized. Please login/create an account.'
 			});
 		}
 		
