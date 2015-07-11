@@ -59,13 +59,16 @@
 			function (userDoc, followingUserDoc, callback) {
 				// Toggle Follow/Unfollow
 				var currentUserArray = userDoc.following,
-					followingUserArray = followingUserDoc.followers;
+					followingUserArray = followingUserDoc.followers,
+					
+					currentUserFollowers = userDoc.toObject().followers;
 
 				if (currentUserArray.indexOf(followingUserDoc._id) === -1 && 
 					followingUserArray.indexOf(userDoc._id) === -1) {
 					currentUserArray.push(followingUserDoc._id);
 					followingUserArray.push(userDoc._id);
-					pushUserActivity(userDoc._id, followingUserDoc._id, {
+					
+					pushUserActivity(userDoc._id, currentUserFollowers, {
 						action: "followed",
 						reference: followingUserDoc._id,
 						referenceTitle: followingUserDoc.username
@@ -79,7 +82,8 @@
 					followingUserArray.splice(
 						followingUserArray.indexOf(userDoc._id), 1
 					);
-					pushUserActivity(userDoc._id, followingUserDoc._id, {
+					
+					pushUserActivity(userDoc._id, currentUserFollowers, {
 						action: "unfollowed",
 						reference: followingUserDoc._id,
 						referenceTitle: followingUserDoc.username
@@ -107,7 +111,7 @@
 	}
 
 	module.exports = {
-		post: post	
+		post: post
 	};
 
 }());
