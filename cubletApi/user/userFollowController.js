@@ -62,8 +62,8 @@
 					followingUserArray.push(userDoc._id);
 					pushUserActivity(userDoc._id, followingUserDoc._id, {
 						action: "followed",
-						reference: userDoc._id,
-						referenceTitle: userDoc.username
+						reference: followingUserDoc._id,
+						referenceTitle: followingUserDoc.username
 					});
 					callback(null, "Succesfully followed " + 
 							 userDoc.username);
@@ -76,8 +76,8 @@
 					);
 					pushUserActivity(userDoc._id, followingUserDoc._id, {
 						action: "unfollowed",
-						reference: userDoc._id,
-						referenceTitle: userDoc.username
+						reference: followingUserDoc._id,
+						referenceTitle: followingUserDoc.username
 					});
 					callback(null, "Succesfully unfollowed " + 
 							 followingUserDoc.username);
