@@ -24,9 +24,9 @@
 		.get(userInfoController.get);
 	router
 		.route('/:userid/follow')
-		.put(userIdMiddleware)
-		.put(authMiddleware)
-		.put(userFollowController.put);
+		.post(userIdMiddleware)
+		.post(authMiddleware)
+		.post(userFollowController.post);
 
 
 

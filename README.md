@@ -45,7 +45,7 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
       * `PUT` to edit the user with provided `<repo-id>` (JWT)
       * `GET` to view the specific user with `<user-id>`
   * `/<user-id>/follow` (JWT)
-      * `PUT` to set the current logged in user as following/unfollowing the user who has an account id of `<user-id>`and set the user who has an account id of `<user-id>` to have the current logged in user as a follower/unfollower.
+      * `POST` to set the current logged in user as following/unfollowing the user who has an account id of `<user-id>`and set the user who has an account id of `<user-id>` to have the current logged in user as a follower/unfollower.
 		
 3. `/repos`
   * `POST` to add a new repository

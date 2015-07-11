@@ -7,7 +7,12 @@
 		apiView = require('cubletApi/apiView'),
 		pushUserActivity = require('cubletApi/pushUserActivity');
 
-	function put(req, res) {
+	/**
+	* Handles User Follows
+	* @param {Object} req - Express Request Object
+	* @param {Object} res - Express Response Object
+	*/
+	function post(req, res) {
 		var userId = req.authToken._id,
 			followingUserId = req.params.userid;
 
@@ -102,7 +107,7 @@
 	}
 
 	module.exports = {
-		put: put	
+		post: post	
 	};
 
 }());
