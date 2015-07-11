@@ -76,7 +76,7 @@
 			}
 		], function (err, userDoc) {
 			if (err) {
-				apiView(res, {
+				return apiView(res, {
 					status: 400,
 					message: err.message
 				});
