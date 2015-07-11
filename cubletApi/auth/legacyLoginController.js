@@ -22,7 +22,7 @@
 			userSearch;
 
 		if (!(userIdentifier && userPassword)) {
-			apiView(res, {
+			return apiView(res, {
 				status: 403,
 				message:  'User Email/Username and Password must' + 
 				' be both provided'

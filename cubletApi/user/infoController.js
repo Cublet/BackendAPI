@@ -59,20 +59,28 @@
 				});	
 			},
 			function (userDoc, callback) {
-				if (req && req.body) {
-					lodash.forOwn(req.body, function (value, key) {
-						userDoc[key] = value;
-					});
-					return userDoc.save(function (err, userDoc) {
-						if (err) {
-							return callback(err);	
-						}
-						
-						callback(null, userDoc);	
-					});
+				var updatedUserInfo = req && req.body;
+				if (!updatedUserInfo) {
+					return callback(
+						new Error("No user information to update")
+					);
 				}
+				
+				updatedUserInfo = lodash.pick(updatedUserInfo, [
+					'name',
+					'username',
+					'email',
+					'password'
+				]);
+				userDoc = lodash.merge(userDoc, updatedUserInfo);
+				
+				return userDoc.save(function (err, userDoc) {
+					if (err) {
+						return callback(err);	
+					}
 
-				callback(null, userDoc);
+					callback(null, userDoc);	
+				});
 			}
 		], function (err, userDoc) {
 			if (err) {
