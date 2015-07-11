@@ -13,8 +13,8 @@
 	* @param {number|array} subscriberId - ID/s of User/s who should be 
 	*	notified of the activity
 	* @param {Object} activity - Must follow the userActivitySchema.
-	*	action: past-tense verb 
-	*		e.g. followed, upvoted, created, wrote, commented
+	*	action: past-tense verb + _ + reference object 
+	*		e.g. followed_user, upvoted_repoComment
 	*	reference: _id of Model the activity has targeted 
 	*		e.g. 1923f, f12esds
 	* @param {Function} callable - Function to call back when activity 
