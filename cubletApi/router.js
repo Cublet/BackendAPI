@@ -21,8 +21,8 @@
 	router.use(corsMiddleware);
 	
 	router.use('/auth', authRouter);
-	router.use('/user', userRouter);
-	router.use('/repo', repoRouter);
+	router.use('/users', userRouter);
+	router.use('/repos', repoRouter);
 	
 	router.all(express().mountpath, function (req, res) {
 		apiView(res, {
