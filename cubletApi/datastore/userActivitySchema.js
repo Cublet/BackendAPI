@@ -6,7 +6,6 @@
 
 		userActivitySchema = new Schema({
 			action: String,
-			referenceTitle: String,
 			reference: Schema.Types.ObjectId,
 			createdAt: Date
 		});

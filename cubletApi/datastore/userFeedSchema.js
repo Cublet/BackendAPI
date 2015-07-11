@@ -16,7 +16,6 @@
 		userFeedSchema = new Schema({
 			from: Schema.Types.ObjectId,
 			action: String,
-			referenceTitle: String,
 			reference: Schema.Types.ObjectId,
 			createdAt: Date
 		});

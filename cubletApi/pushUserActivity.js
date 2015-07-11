@@ -17,8 +17,6 @@
 	*		e.g. followed, upvoted, created, wrote, commented
 	*	reference: _id of Model the activity has targeted 
 	*		e.g. 1923f, f12esds
-	*	referenceTitle: human-readable version of reference
-	*		e.g. johndoe, "Testes"
 	* @param {Function} callable - Function to call back when activity 
 	*	has succesfully been pushed.
 	*/
