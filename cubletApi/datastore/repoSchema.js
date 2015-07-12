@@ -10,19 +10,23 @@
 				type: String,
 				required: true
 			},
+			description: String,
 			code: {
 				type: String,
 				required: true
 			},
 			comments: [repoCommentSchema],
-			followedBy: [{
+			createdBy: {
+				type: Schema.Types.ObjectId,
+				ref: 'User'
+			},
+			upvotes: [{
 				type: Schema.Types.ObjectId,
 				ref: 'User'
 			}],
-			createdBy: {
-				type: Schema.Types.ObjectId,
-				ref: 'User',
-				required: true
+			public: {
+				type: Boolean,
+				default: true
 			},
 			createdAt: Date,
 			updatedAt: Date

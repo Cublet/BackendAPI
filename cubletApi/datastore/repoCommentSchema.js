@@ -14,6 +14,10 @@
 				ref: 'User',
 				required: true
 			},
+			upvotes: [{
+				type: Schema.Types.ObjectId,
+				ref: 'User'
+			}],
 			createdAt: Date,
 			updatedAt: Date,
 			under: {
