@@ -27,7 +27,7 @@
 		if (!decodedAuthToken) {
 			return apiView(res, {
 				status: 403,
-				message: 'Invalid Token'
+				message: 'Unauthorized. Invalid Token.'
 			});
 		}
 		
