@@ -53,6 +53,8 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
   * `/<repo-id>`
       * `PUT` to edit the repository with provided `<repo-id>` (JWT)
       * `GET` to view the specific repository with `<repo-id>`
+  * `/<repo-id>/upvote`
+      * `POST` to toggle the upvote of current user on repo `<repo-id>` (JWT)
   * `/<repo-id>/comments`
       * `POST` to add a new comment to a repository (JWT)
   * `/<repo-id>/comments/<comment-id>`
@@ -66,6 +68,8 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
   * `/<forum-id>`
       * `PUT` to edit the forum with provided `<forum-id>` (JWT)
 	  * `GET` to view the specific forum with `<forum-id>`
+  * `/<forum-id>/upvote`
+      * `POST` to toggle the upvote of current user on forum `<forum-id>` (JWT)
   * `/<forum-id>/comments`
       * `POST` to add a new comment to a forum (JWT)
   * `/<forum-id>/comments/<comment-id>`
