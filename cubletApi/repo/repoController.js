@@ -125,6 +125,7 @@
 				});
 			}
 
+			repoDoc.upvotes.push(loggedInUser._id);
 			repoDoc.save();
 
 			pushUserActivity(loggedInUser._id, loggedInUser.followers, {
@@ -183,7 +184,7 @@
 	* @param {Object} res - Express Response Object
 	*/
 	function updateComment(req, res) {
-		var repoId = req.params.repoId,
+		var repoId = req.params.repoid,
 			repoCommentId = req.params.commentid,
 			loggedInUser = req.authToken;
 
@@ -219,12 +220,14 @@
 	* @param {Object} res - Express Response Object
 	*/
 	function addCommentUpvote(req, res) {
-		var repoId = req.params.repoId,
+		var repoId = req.params.repoid,
 			repoCommentId = req.params.commentid,
 			loggedInUser = req.authToken;
 
 		_getRepoDoc(repoId, res, function (repoDoc) {
-			var repoCommentDoc = repoDoc.comments.id(repoCommentId);
+			var repoCommentDoc = repoDoc.comments.id(repoCommentId),
+				loggedInUserInUpvotes = 
+				repoCommentDoc.upvotes.indexOf(loggedInUser._id);
 
 			if (!repoCommentDoc) {
 				return apiView(res, {
@@ -233,10 +236,10 @@
 				});
 			}
 
-			if (repoCommentDoc.upvotes.indexOf(loggedInUser._id) > -1) {
-				lodash.remove(repoCommentDoc.upvotes, function (upvoteUser) {
-					return upvoteUser === loggedInUser._id;
-				});
+			if (loggedInUserInUpvotes > -1) {
+				repoCommentDoc.upvotes.splice(loggedInUserInUpvotes, 1);
+				repoDoc.save();
+				
 				return apiView(res, {
 					status: 400,
 					message: "You already upvoted this comment."
