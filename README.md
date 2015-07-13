@@ -19,65 +19,78 @@ Cublet allows users to
 ## API endpoints
 All API endpoint requests must be prefixed by `/api/<Cublet version number>`. The current version number of the Cublet API backend is `v1`. All API responses are returned in the JSON format by default. 
 
-All endpoints demarcated with the label `JWT`, are run through the Auth Express middleware which checks for the JSON Web Token on the Authentication headers.
+All endpoints demarcated with the label `JWT`, are run through the Auth Express middleware which checks for the JSON Web Token on the Authentication headers. As such, all JWT URL endpoints must have an Authorization Header holding a value of `Bearer <jwtTokenString>`.
 
 1. `/auth`
   * `/signup`
       * `POST` a user's signup information - name, email, username, password
-	  * `name` parameter for new user's full name
-	  * `email` parameter for new user's email
-	  * `username` parameter for new user's username
-	  * `password` parameter for new user's password
+	      * `name` parameter for new user's full name
+	      * `email` parameter for new user's email
+	      * `username` parameter for new user's username
+	      * `password` parameter for new user's password
   * `/login/legacy`
       * `POST` a user's credentials for legacy login - email/username or password
-	  * `useridentifier` parameter for email/username
-	  * `userpassword` parameter for password
+	      * `useridentifier` parameter for email/username
+	      * `userpassword` parameter for password
   * `/login/facebook`
       * `POST` a Facebook oAuth access token that can be used to grab user information
-	  * `username` parameter for user's username, if this is the first time the user is logging in.
-	  * `usertoken` parameter for Facebook access token
+	      * `username` parameter for user's username, if this is the first time the user is logging in.
+	      * `usertoken` parameter for Facebook access token
 	  
 2. `/users`
   * `/me` (JWT)
       * `PUT` to edit the current logged in user's information
+	      * Parameters: `name`, `username`, `email`, `password`
 	  * `GET` to view the current logged in user's information
+	      * Returns `name`, `username`, `email`, `facebookId`, `googleId`, `createdAt`, `updatedAt`, `following (Array of User IDs)`, `followers (Array of User IDs)`, `feed (Array: from, action, reference, createdAt), activity (Array: action, reference, createdAt)`
   * `/<user-id>`
       * `PUT` to edit the user with provided `<repo-id>` (JWT)
+	      * Parameters: `name`, `username`, `email`, `password`
       * `GET` to view the specific user with `<user-id>`
+	      * Returns `name`, `username`, `email`, `facebookId`, `googleId`, `createdAt`, `updatedAt`, `following (Array of User IDs)`, `followers (Array of User IDs)`, `feed (Array: from, action, reference, createdAt)`, 
   * `/<user-id>/follow` (JWT)
       * `POST` to set the current logged in user as following/unfollowing the user who has an account id of `<user-id>`and set the user who has an account id of `<user-id>` to have the current logged in user as a follower/unfollower.
 		
 3. `/repos`
   * `POST` to add a new repository
+      * Parameters: `title`, `description`, `code`, `public`
   * `GET` to get all the repo boards
   * `/<repo-id>`
       * `PUT` to edit the repository with provided `<repo-id>` (JWT)
+	      * Parameters: `title`, `description`, `code`, `public`
       * `GET` to view the specific repository with `<repo-id>`
+	      * Returns: `title`, `description`, `code`, `comments (Array: message, createdBy, upvotes, createdAt, updatedAt, under)`, `createdBy`, `upvotes (Array)`, `public`, `createdAt`, `updatedAt`
   * `/<repo-id>/upvote`
       * `POST` to toggle the upvote of current user on repo `<repo-id>` (JWT)
   * `/<repo-id>/comments`
       * `POST` to add a new comment to a repository (JWT)
+	      * Parameters: `message`
   * `/<repo-id>/comments/<comment-id>`
 	  * `PUT` to edit the specific comment at the specific repository (JWT)
+	      * Parameters: `message`
   * `/<repo-id>/comments/<comment-id>/upvote`
       * `POST` to toggle the upvote of current user on comment `<comment-id>` on repo `<repo-id>` (JWT)
 	  
 4. `/forums`
   * `POST` to add a new forum board
+      * Parameters: `title`, `message`
   * `GET` to get all the forum boards
   * `/<forum-id>`
       * `PUT` to edit the forum with provided `<forum-id>` (JWT)
+	      * Parameters: `title`, `message`
 	  * `GET` to view the specific forum with `<forum-id>`
+	      * Returns: `title`, `message`, `createdBy`, `createdAt`, `updatedAt`, `comments (Array: message, createdBy, upvotes, createdAt, updatedAt, under)`
   * `/<forum-id>/upvote`
       * `POST` to toggle the upvote of current user on forum `<forum-id>` (JWT)
   * `/<forum-id>/comments`
       * `POST` to add a new comment to a forum (JWT)
+	      * Parameters: `message`
   * `/<forum-id>/comments/<comment-id>`
 	  * `PUT` to edit the specific comment at the specific forum (JWT)
+	      * Parameters: `message`
   * `/<forum-id>/comments/<comment-id>/upvote`
       * `POST` to toggle the upvote of current user on comment `<comment-id>` on forum `<forum-id>` (JWT)
 	  
-
 ## Technologies Used:
 * Mongo Database
 * Mongoose for NodeJS Mongo Schema
@@ -86,4 +99,5 @@ All endpoints demarcated with the label `JWT`, are run through the Auth Express 
 * JSONWebToken for creating session/authentication tokens
 
 ## Dev Process
-* Gulp for build step
+* Gulp is used for the build step
+* If you plan to spin up an instance of Cublet's Backend-API for experimental reasons, just edit the settings in config.js and watch the magic!
