@@ -15,13 +15,14 @@
 		config = {
 			versionNumber: packageInfo.version.split('.')[0],
 			portNumber: 8000,
-			greeterMessage: 'Welcome to Cublet\'s API. For more information, ' + 
-			'check out https://github.com/Cublet/BackendAPI',
+			greeterMessage: 'Welcome to Cublet\'s API. For more ' + 
+				'information, check out https://github.com/Cublet/BackendAPI',
 			Mongoose: {
 				debug: true,
 				connectionUri: ''
 			},
 			jwtSecret: '',
+			staticFileLocation: 'public',
 			facebook: {
 				appId: '',
 				appSecret: ''
