@@ -1,7 +1,7 @@
 {
-  "name": "cubletbeta-backend",
+  "name": "cublet-backendapi",
   "version": "1.0.0",
-  "description": "Cublet Beta is a web app that allows programming beginners to learn how to use the Wolfram Language.",
+  "description": "Cublet is a web app that allows programming beginners to learn how to use the Wolfram Language. Cublet-BackendAPI handles all the backend server-side logic.",
   "main": "server.js",
   "dependencies": {
     "app-module-path": "^1.0.2",
@@ -28,18 +28,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alastairparagas/CubletBeta-Backend.git"
+    "url": "git+https://github.com/Cublet/BackendAPI.git"
   },
   "keywords": [
-    "cublet-beta",
     "cublet",
     "backend",
+    "api",
     "wolfram"
   ],
   "author": "Alastair Paragas <alastairparagas@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/alastairparagas/CubletBeta-Backend/issues"
+    "url": "https://github.com/Cublet/BackendAPI/issues"
   },
-  "homepage": "https://github.com/alastairparagas/CubletBeta-Backend#readme"
+  "homepage": "https://github.com/Cublet/BackendAPI#readme"
 }
