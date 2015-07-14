@@ -16,7 +16,8 @@
 		var userDocFormatted = lodash.clone(userDoc.toObject()), 
 			authTokenPayload = {
 				_id: userDocFormatted._id,
-				username: userDocFormatted.name,
+				name: userDocFormatted.name,
+				username: userDocFormatted.username,
 				email: userDocFormatted.email,
 				createdAt: userDocFormatted.createdAt
 			};
